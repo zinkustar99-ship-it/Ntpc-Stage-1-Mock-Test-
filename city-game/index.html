@@ -12,50 +12,27 @@
 <div class="hud"><div class="panel"><b>🇮🇳 CITY LIFE INDIA</b><div class="small">सिक्के: <b id="score">0</b> / 8</div></div><div class="panel" id="mission">मिशन: शहर में घूमो</div></div>
 <div id="help">चलना: तीर वाले बटन दबाएँ<br>कैमरा: दाईं ओर उंगली खींचें<br>RUN: दौड़ना · JUMP: कूदना</div>
 <div id="dpad"><button id="up">▲</button><button id="left">◀</button><button id="down">▼</button><button id="right">▶</button></div><div id="buttons"><button class="act" id="jump">JUMP</button><button class="act" id="run">RUN</button></div><div id="toast"></div>
-<div id="start"><div id="box"><div style="font-size:44px">🏙️</div><h1>CITY LIFE INDIA</h1><p>एक रंगीन भारतीय शहर में घूमो—नया चेहरा और कपड़ों वाला चलने-फिरने योग्य 3D नागरिक किरदार, दुकानें, मकान और सड़कें।</p><p>मोबाइल पर नीचे बाईं तरफ तीर वाले बटन दबाकर चलो और दाईं ओर उंगली खींचकर कैमरा घुमाओ।</p><button id="play">खेल शुरू करें ▶</button><p style="font-size:10px">अब नया नागरिक किरदार और बेहतर शहर बनाया गया है।</p></div></div>
+<div id="start"><div id="box"><div style="font-size:44px">🏙️</div><h1>CITY LIFE INDIA</h1><p>एक भारतीय शहर की गलियों में घूमो। असली 3D मानव किरदार, दुकानें, मकान, सड़कें और ट्रैफिक वाला छोटा ओपन-वर्ल्ड अनुभव।</p><p>मोबाइल पर नीचे बाईं तरफ तीर वाले बटन दबाकर चलो और दाईं ओर उंगली खींचकर कैमरा घुमाओ।</p><button id="play">खेल शुरू करें ▶</button><p style="font-size:10px">पहली बार 3D मानव मॉडल लोड होने में थोड़ा समय लग सकता है।</p></div></div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script><script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 <script>
 (()=>{const root=document.getElementById('game'),toast=document.getElementById('toast');if(!window.THREE){toast.textContent='3D इंजन लोड नहीं हुआ — इंटरनेट जाँचें';toast.style.opacity=1;return}
-const scene=new THREE.Scene();scene.background=new THREE.Color(0x8fc8ed);scene.fog=new THREE.Fog(0x9fc9df,135,330);
-const camera=new THREE.PerspectiveCamera(62,innerWidth/innerHeight,.1,400);const renderer=new THREE.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,1.35));renderer.setSize(innerWidth,innerHeight);renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.18;root.appendChild(renderer.domElement);
-scene.add(new THREE.HemisphereLight(0xe7f4ff,0x71604b,1.35));const sun=new THREE.DirectionalLight(0xffedcf,2.1);sun.position.set(-45,70,35);sun.castShadow=true;sun.shadow.mapSize.set(1536,1536);sun.shadow.camera.left=-90;sun.shadow.camera.right=90;sun.shadow.camera.top=90;sun.shadow.camera.bottom=-90;scene.add(sun);
+const scene=new THREE.Scene();scene.background=new THREE.Color(0x8fc8ed);scene.fog=new THREE.Fog(0x9fc9df,105,260);
+const camera=new THREE.PerspectiveCamera(62,innerWidth/innerHeight,.1,400);const renderer=new THREE.WebGLRenderer({antialias:true});renderer.setPixelRatio(Math.min(devicePixelRatio,1.6));renderer.setSize(innerWidth,innerHeight);renderer.shadowMap.enabled=true;renderer.shadowMap.type=THREE.PCFSoftShadowMap;renderer.outputEncoding=THREE.sRGBEncoding;renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.18;root.appendChild(renderer.domElement);
+scene.add(new THREE.HemisphereLight(0xe7f4ff,0x71604b,1.35));const sun=new THREE.DirectionalLight(0xffedcf,2.1);sun.position.set(-45,70,35);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);sun.shadow.camera.left=-90;sun.shadow.camera.right=90;sun.shadow.camera.top=90;sun.shadow.camera.bottom=-90;scene.add(sun);
 const M=(c,r=.9,metal=0)=>new THREE.MeshStandardMaterial({color:c,roughness:r,metalness:metal});const asphalt=M(0x42474b),concrete=M(0xd0c8b8),paint=M(0xf5e9c9),soil=M(0x81945d),glass=new THREE.MeshStandardMaterial({color:0x8db7c5,roughness:.2,metalness:.25}),brick=M(0xb86d4d),cream=M(0xd8c7a5),white=M(0xe6e2d7),blue=M(0x8caab2);
 function box(w,h,d,m,x,y,z,parent=scene){const o=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);o.position.set(x,y,z);o.castShadow=true;o.receiveShadow=true;parent.add(o);return o}
 const ground=new THREE.Mesh(new THREE.PlaneGeometry(300,300),soil);ground.rotation.x=-Math.PI/2;ground.receiveShadow=true;scene.add(ground);
 // City blocks, road grid, pavements and lane markings
 for(let k=-3;k<=3;k++){const p=k*30;box(11,.12,190,asphalt,p,.06,0);box(190,.12,11,asphalt,0,.06,p);box(5,.18,190,concrete,p+8,.09,0);box(190,.18,5,concrete,0,.09,p+8);for(let n=-9;n<=9;n++){box(.16,.025,2.8,paint,p,.14,n*10);box(2.8,.025,.16,paint,n*10,.14,p)}}
-// Dense Indian market blocks with varied facades, balconies and readable shop signs
-const blockM=[M(0xd9b995),M(0xe4c9a1),M(0xc98e70),M(0x9bb7b4),M(0xd6ad83),M(0xb5b79b),M(0xe0c5a8),M(0xa7a0a0)],obstacles=[];
-const signNames=["चाय कॉर्नर","जनरल स्टोर","मोबाइल रिपेयर","शर्मा स्वीट्स","किराना भंडार","फोटो स्टूडियो","फैशन पॉइंट","मेडिकल स्टोर"];
-function shopSign(x,y,z,w,label,color){const panel=box(w,.72,.16,M(color),x,y,z);const cv=document.createElement('canvas');cv.width=512;cv.height=128;const c=cv.getContext('2d');c.fillStyle='#fff4d8';c.fillRect(0,0,512,128);c.fillStyle='#18232c';c.font='bold 48px sans-serif';c.textAlign='center';c.textBaseline='middle';c.fillText(label,256,64,480);const tx=new THREE.CanvasTexture(cv);tx.encoding=THREE.sRGBEncoding;const face=new THREE.Mesh(new THREE.PlaneGeometry(w*.94,.58),new THREE.MeshBasicMaterial({map:tx}));face.position.set(x,y,z+.091);scene.add(face);return panel}
-for(let gx=-3;gx<=3;gx++)for(let gz=-3;gz<=3;gz++){
- if(gx===0&&gz===0)continue;
- const cx=gx*30+(gx<0?-9:9),cz=gz*30+(gz<0?-9:9),w=11+Math.random()*5,d=11+Math.random()*5,h=10+Math.random()*17,m=blockM[(Math.abs(gx*7+gz*3))%blockM.length];
- box(w,h,d,m,cx,h/2,cz);box(w+.5,.42,d+.5,M(0x77736b),cx,h+.22,cz);obstacles.push({x:cx,z:cz,w,d});
- // Front facade, repeated windows, ledges and balconies
- for(let y=2.3;y<h-1;y+=2.7){
-  for(let x=-w/2+1.25;x<w/2-.4;x+=2.45){
-   box(1.22,1.42,.10,glass,cx+x,y,cz+d/2+.07);
-   box(1.34,.12,.52,M(0x777b79),cx+x,y-.79,cz+d/2+.28);
-   box(.10,1.48,.13,M(0xeee2ce),cx+x-.68,y,cz+d/2+.13);
-   box(.10,1.48,.13,M(0xeee2ce),cx+x+.68,y,cz+d/2+.13);
-   if(y>3)box(1.55,.12,.78,M(0x9a9284),cx+x,y-.83,cz+d/2+.43);
-  }
- }
- // Ground-floor shopfronts and Hindi signboards
- box(w*.82,2.25,.18,M(0x4a4944),cx,1.18,cz+d/2+.12);
- for(let j=0;j<3;j++){
-  const sx=cx-w*.31+j*w*.31;
-  box(w*.23,1.45,.10,glass,sx,1.25,cz+d/2+.23);
-  box(w*.23,.10,.18,M(0xddd0b6),sx,2.05,cz+d/2+.29);
- }
- shopSign(cx,2.65,cz+d/2+.22,w*.82,signNames[(Math.abs(gx*3+gz*5))%signNames.length],[0x1e5661,0x8c3e25,0x365d3e,0x6a3c66][Math.abs(gx+gz)%4]);
- // Rooftop water tanks and small utility structures
- box(w*.32,1.25,d*.28,M(0xc5b9a2),cx-w*.22,h+.95,cz);
- const tank=new THREE.Mesh(new THREE.CylinderGeometry(.75,.75,1.5,12),M(0x426d80));tank.position.set(cx+w*.22,h+1,cz-d*.15);tank.castShadow=true;scene.add(tank);
- // Occasional balcony rails
- if((gx+gz)%2===0)for(let y=4.8;y<h-2;y+=5.4)box(w*.68,.10,.65,M(0x424a4c),cx,y,cz+d/2+.52);
-}// Street lights and roadside trees
+// Buildings with shopfronts, balconies, parapets, AC units and signage
+const blockM=[M(0xe6a15c),M(0xf0d36e),M(0xc96f58),M(0x72a9b5),M(0xd98ca2),M(0x9dbd83),M(0xe7c6a1),M(0x9d91c8)],obstacles=[];
+for(let gx=-3;gx<=3;gx++)for(let gz=-3;gz<=3;gz++){if(gx===0&&gz===0)continue;const cx=gx*30+(gx<0?-9:9),cz=gz*30+(gz<0?-9:9),w=10+Math.random()*5,d=10+Math.random()*5,h=9+Math.random()*19,m=blockM[(Math.abs(gx*7+gz*3))%blockM.length];box(w,h,d,m,cx,h/2,cz);box(w+.4,.45,d+.4,M(0x666b6d),cx,h+.2,cz);obstacles.push({x:cx,z:cz,w,d});
+for(let y=2.2;y<h-1;y+=2.8){for(let x=-w/2+1.3;x<w/2-.5;x+=2.4){box(1.15,1.25,.09,glass,cx+x,y,cz+d/2+.06);box(1.15,1.25,.09,glass,cx+x,y,cz-d/2-.06);box(1.2,.09,.75,M(0x77736c),cx+x,y-.72,cz+d/2+.35)}}
+box(w*.8,.22,.25,M(0x35404a),cx,h*.22,cz+d/2+.2);box(w*.55,1.05,.12,M(0x1d5964),cx,h*.22+.58,cz+d/2+.34);
+for(let j=0;j<3;j++)box(.6,.7,.12,glass,cx-w*.25+j*w*.25,h*.22+.55,cz+d/2+.42);
+for(let a=-1;a<=1;a+=2)box(.55,1.4,.55,M(0xaaa49a),cx+a*(w/2-.5),h*.22+.7,cz+d/2+.4);
+}
+// Street lights and roadside trees
 for(let k=-3;k<=3;k++)for(let n=-5;n<=5;n++){const x=k*30+8,z=n*27;if(Math.abs(x)<13&&Math.abs(z)<13)continue;box(.16,4.8,.16,M(0x343a3c),x,2.4,z);box(1.4,.16,.45,M(0xffe9b2),x+.55,4.7,z)}
 function tree(x,z){const trunk=M(0x69472f);box(.45,2.6,.45,trunk,x,1.3,z);const crown=new THREE.Mesh(new THREE.SphereGeometry(1.65,16,12),M(0x39764a));crown.position.set(x,3.4,z);crown.castShadow=true;scene.add(crown)}
 for(let i=0;i<60;i++){let x=(Math.random()-.5)*180,z=(Math.random()-.5)*180;if(Math.abs(x%30)<9||Math.abs(z%30)<9)continue;tree(x,z)}
@@ -74,7 +51,7 @@ const coins=[],gold=M(0xffc83d,.25,.55);for(let i=0;i<8;i++){let x=(Math.floor(M
 let score=0,joy={x:0,y:0},keys={},running=false,jumping=false,vy=0,yaw=0,pitch=.2,walkClock=0;const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
 function say(t){toast.textContent=t;toast.style.opacity=1;clearTimeout(say.timer);say.timer=setTimeout(()=>toast.style.opacity=0,1700)}
 function blocked(x,z){if(Math.abs(x)>105||Math.abs(z)>105)return true;return obstacles.some(b=>Math.abs(x-b.x)<b.w/2+.65&&Math.abs(z-b.z)<b.d/2+.65)}
-function update(dt){let ix=0,iz=0;if(keys.KeyA||keys.ArrowLeft)ix-=1;if(keys.KeyD||keys.ArrowRight)ix+=1;if(keys.KeyW||keys.ArrowUp)iz-=1;if(keys.KeyS||keys.ArrowDown)iz+=1;let l=Math.hypot(ix,iz);if(l>1){ix/=l;iz/=l}let moving=l>.12,speed=running?8.3:4.5;let dx=(Math.sin(yaw)*iz+Math.cos(yaw)*ix)*speed*dt,dz=(Math.cos(yaw)*iz-Math.sin(yaw)*ix)*speed*dt;if(!blocked(player.position.x+dx,player.position.z))player.position.x+=dx;if(!blocked(player.position.x,player.position.z+dz))player.position.z+=dz;if(moving){player.rotation.y=Math.atan2(dx,dz);}animateHuman(performance.now()/1000,moving,running);if(jumping){vy-=19*dt;player.position.y+=vy*dt;if(player.position.y<=0){player.position.y=0;vy=0;jumping=false}}}
+function update(dt){let ix=0,iz=0;if(keys.KeyA||keys.ArrowLeft)ix-=1;if(keys.KeyD||keys.ArrowRight)ix+=1;if(keys.KeyW||keys.ArrowUp)iz-=1;if(keys.KeyS||keys.ArrowDown)iz+=1;let l=Math.hypot(ix,iz);if(l>1){ix/=l;iz/=l}let moving=l>.12,speed=running?8.3:4.5;let dx=(Math.sin(yaw)*iz+Math.cos(yaw)*ix)*speed*dt,dz=(Math.cos(yaw)*iz-Math.sin(yaw)*ix)*speed*dt;if(!blocked(player.position.x+dx,player.position.z))player.position.x+=dx;if(!blocked(player.position.x,player.position.z+dz))player.position.z+=dz;if(moving){player.rotation.y=Math.atan2(dx,dz)+Math.PI;playAnim(running?'Run':'Walk')}else playAnim('Idle');if(jumping){vy-=19*dt;player.position.y+=vy*dt;if(player.position.y<=0){player.position.y=0;vy=0;jumping=false}}if(mixer)mixer.update(dt)}
 function updateCamera(dt){const target=new THREE.Vector3(player.position.x,player.position.y+1.45,player.position.z);const dist=7.5;const dest=new THREE.Vector3(target.x+Math.sin(yaw)*dist*Math.cos(pitch),target.y+2.1+Math.sin(pitch)*dist,target.z+Math.cos(yaw)*dist*Math.cos(pitch));camera.position.lerp(dest,1-Math.pow(.001,dt));camera.lookAt(target)}
 let last=performance.now();function frame(t){requestAnimationFrame(frame);let dt=Math.min((t-last)/1000,.04);last=t;update(dt);updateCamera(dt);coins.forEach((c,i)=>{c.rotation.z+=dt*1.4;c.position.y=1.35+Math.sin(t*.002+i)*.12;if(c.visible&&c.position.distanceTo(new THREE.Vector3(player.position.x,1.3,player.position.z))<1.45){c.visible=false;score++;document.getElementById('score').textContent=score;say('🪙 सिक्का मिला · '+score+'/8');if(score===8)say('🎉 मिशन पूरा! सारे सिक्के मिल गए!')}});renderer.render(scene,camera)}requestAnimationFrame(frame);
 addEventListener('keydown',e=>{keys[e.code]=true;if(e.code==='Space'&&!jumping){jumping=true;vy=7.8}});addEventListener('keyup',e=>keys[e.code]=false);
