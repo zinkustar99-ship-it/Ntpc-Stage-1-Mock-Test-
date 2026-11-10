@@ -1,0 +1,71 @@
+<!doctype html><html lang="hi"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>RRB NTPC CBT-1 Mock Test</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f2f5fa;color:#18253a;font:16px system-ui,"Noto Sans Devanagari",sans-serif}header{background:#142e52;color:white;padding:16px;display:flex;justify-content:space-between;align-items:center;gap:10px}.wrap{max-width:1050px;margin:18px auto;padding:0 12px}.card{background:white;border:1px solid #dfe6f0;border-radius:13px;padding:18px;margin-bottom:14px;box-shadow:0 3px 12px #132b4f0c}.muted{color:#64748b;font-size:14px}.layout{display:grid;grid-template-columns:1fr 260px;gap:14px}.q{font-size:20px;font-weight:700;margin:20px 0}.opt{display:block;border:1px solid #d5deea;border-radius:9px;padding:12px;margin:9px 0;cursor:pointer}.opt:has(input:checked){background:#edf4ff;border-color:#285ca8}.opt input{margin-right:9px}.btn{border:0;border-radius:8px;padding:10px 14px;margin:5px 4px 0 0;background:#e7edf5;color:#1d3558;font-weight:700}.primary{background:#2457a7;color:white}.good{color:#137342;background:#e9f7ef;padding:12px;border-radius:8px}.bad{color:#a12c25;background:#fff0ee;padding:12px;border-radius:8px}.grid{display:grid;grid-template-columns:repeat(5,1fr);gap:6px}.num{padding:9px 0;border:0;border-radius:6px;background:#e5ebf3}.num.done{background:#198653;color:white}.num.mark{background:#7954ae;color:white}.num.sel{outline:3px solid #9bb8ed}.timer{background:white;color:#142e52;padding:8px 12px;border-radius:8px;font-weight:800}.bar{height:8px;background:#e6ebf2;border-radius:9px;margin:12px 0}.bar span{display:block;height:100%;background:#198653;border-radius:9px}.score{font-size:36px;font-weight:800;color:#142e52}.review{border-top:1px solid #e2e8f0;padding:12px 0}
+@media(max-width:760px){.layout{grid-template-columns:1fr}.side{order:-1}.q{font-size:18px}}
+</style>
+<header><b>🚆 RRB NTPC CBT-1 · ऑनलाइन मॉक टेस्ट</b><span class="timer" id="timer">90:00</span></header>
+<main class="wrap"><section class="card"><h2 style="margin:0">RRB NTPC Stage-1 अभ्यास परीक्षा</h2><p class="muted">50 प्रश्न · 90 मिनट · सही +1 · गलत −⅓ अंक। यह अभ्यास हेतु mock test है, आधिकारिक प्रश्नपत्र नहीं।</p><p>गणित 15 · रीजनिंग 15 · सामान्य ज्ञान/विज्ञान 10 · समसामयिकी 10</p></section>
+<div class="layout" id="layout"><section class="card"><b id="section"></b><span class="muted" id="counter"></span><div class="q" id="question"></div><div id="options"></div><div id="feedback"></div><div><button class="btn" id="prev">← पिछला</button><button class="btn" id="mark">⚑ Review</button><button class="btn" id="clear">उत्तर हटाएँ</button><button class="btn primary" id="next">अगला →</button><button class="btn primary" id="submit">टेस्ट जमा करें</button></div><div class="bar"><span id="progress"></span></div><small class="muted" id="progressText"></small></section>
+<aside class="card side"><b>प्रश्न सूची</b><p class="muted">हरा = उत्तर दिया · बैंगनी = Review</p><div class="grid" id="grid"></div></aside></div></main>
+<script>
+const S=["गणित","रीजनिंग","सामान्य ज्ञान / विज्ञान","समसामयिकी"];
+const raw=[
+["गणित","240 का 25% कितना है?",["40","50","60","70"],2,"25% = 1/4; 240 ÷ 4 = 60।"],
+["गणित","किसी संख्या का 3/5 भाग 48 है। संख्या क्या है?",["60","70","80","90"],2,"48 × 5/3 = 80।"],
+["गणित","दो संख्याओं का अनुपात 3:5 और योग 64 है। छोटी संख्या?",["18","24","30","40"],1,"कुल 8 भाग; एक भाग 8, छोटी संख्या 24।"],
+["गणित","₹2000 पर 5% वार्षिक दर से 2 वर्ष का साधारण ब्याज?",["₹100","₹150","₹200","₹250"],2,"2000 × 5 × 2 / 100 = ₹200।"],
+["गणित","₹800 में खरीदकर ₹920 में बेचने पर लाभ प्रतिशत?",["10%","12%","15%","20%"],2,"लाभ 120; 120/800 × 100 = 15%।"],
+["गणित","12, 18 और 24 का HCF क्या है?",["3","6","9","12"],1,"तीनों को विभाजित करने वाली सबसे बड़ी संख्या 6।"],
+["गणित","15 और 20 का LCM क्या है?",["30","40","60","80"],2,"LCM = 2² × 3 × 5 = 60।"],
+["गणित","ट्रेन 60 किमी/घंटा से 2.5 घंटे चले तो दूरी?",["120","130","150","180"],2,"दूरी = चाल × समय = 150 किमी।"],
+["गणित","8, 12, 16, 20, 24 का औसत?",["14","16","18","20"],1,"योग 80; 80 ÷ 5 = 16।"],
+["गणित","x + 7 = 19, x कितना है?",["10","11","12","13"],2,"x = 19 − 7 = 12।"],
+["गणित","12 सेमी × 7 सेमी आयत का क्षेत्रफल?",["19","38","84","96"],2,"क्षेत्रफल = 12 × 7 = 84 वर्ग सेमी।"],
+["गणित","9 सेमी भुजा वाले वर्ग का परिमाप?",["18","27","36","81"],2,"4 × 9 = 36 सेमी।"],
+["गणित","20% वृद्धि के बाद संख्या 180 है। मूल संख्या?",["120","140","150","160"],2,"मूल × 1.2 = 180; मूल = 150।"],
+["गणित","A कोई काम 10 दिन में करता है। एक दिन का काम?",["1/5","1/10","1/15","10"],1,"पूरा काम 1; एक दिन में 1/10।"],
+["गणित","2x = 5y और y = 6, x कितना?",["10","12","15","18"],2,"2x = 30, x = 15।"],
+["रीजनिंग","श्रृंखला: 2, 4, 8, 16, ?",["20","24","30","32"],3,"हर बार दोगुना; अगला 32।"],
+["रीजनिंग","अलग शब्द चुनें: सेब, आम, केला, गाजर",["सेब","आम","केला","गाजर"],3,"गाजर सब्जी है, बाकी फल।"],
+["रीजनिंग","CAT को DBU लिखा जाए तो DOG कैसे लिखा जाएगा?",["EPH","EOG","FPH","DPH"],0,"हर अक्षर के बाद वाला अक्षर।"],
+["रीजनिंग","उत्तर की ओर 5 किमी, फिर दाएँ 3 किमी। अब दिशा?",["उत्तर","दक्षिण","पूर्व","पश्चिम"],2,"उत्तर से दायाँ मुड़ने पर पूर्व।"],
+["रीजनिंग","पुस्तक : पढ़ना :: भोजन : ?",["लिखना","खाना","बनाना","देखना"],1,"पुस्तक पढ़ी जाती है, भोजन खाया जाता है।"],
+["रीजनिंग","आज सोमवार है, 10 दिन बाद कौन-सा दिन?",["बुधवार","गुरुवार","शुक्रवार","शनिवार"],1,"10 में 7 हटाएँ; 3 दिन बाद गुरुवार।"],
+["रीजनिंग","A, C, E, G, ?",["H","I","J","K"],1,"एक अक्षर छोड़कर; अगला I।"],
+["रीजनिंग","5 लड़कों में अमित बाएँ से तीसरा है। दाएँ से स्थान?",["दूसरा","तीसरा","चौथा","पाँचवाँ"],1,"5 − 3 + 1 = तीसरा।"],
+["रीजनिंग","सभी गुलाब फूल हैं। निष्कर्ष: सभी गुलाब फूल हैं।",["सही","गलत","निर्णय नहीं","कोई नहीं"],0,"निष्कर्ष कथन से सीधे सही है।"],
+["रीजनिंग","घड़ी में 3 बजे दोनों सुइयों के बीच कोण?",["45°","60°","90°","180°"],2,"3 बजे कोण 90° होता है।"],
+["रीजनिंग","SOUTH को TPVUI लिखा जाए तो NORTH?",["OPSUI","OPSTI","NPSUI","OPRUI"],0,"हर अक्षर को एक स्थान आगे किया गया है।"],
+["रीजनिंग","अलग संख्या: 9, 16, 25, 27, 36",["9","16","27","36"],2,"27 पूर्ण वर्ग नहीं है।"],
+["रीजनिंग","सीमा रीना की बहन है। रीना मोहन की माँ है। सीमा का संबंध?",["माँ","मौसी","बहन","दादी"],1,"माँ की बहन मौसी होती है।"],
+["रीजनिंग","1, 4, 9, 16, 25, ?",["30","32","36","49"],2,"अगला वर्ग 6² = 36।"],
+["रीजनिंग","1 जनवरी बुधवार है। 8 जनवरी कौन-सा दिन?",["मंगलवार","बुधवार","गुरुवार","शुक्रवार"],1,"7 दिन बाद वही वार आता है।"],
+["रीजनिंग","शब्दकोश क्रम में पहले कौन आएगा?",["कमल","कबूतर","किताब","किला"],1,"कबूतर में 'क' के बाद 'ब' पहले आता है।"],
+["सामान्य ज्ञान / विज्ञान","भारत का संविधान कब लागू हुआ?",["15 अगस्त 1947","26 जनवरी 1950","26 नवंबर 1949","2 अक्टूबर 1950"],1,"संविधान 26 जनवरी 1950 को लागू हुआ।"],
+["सामान्य ज्ञान / विज्ञान","भारत की राजधानी क्या है?",["मुंबई","कोलकाता","नई दिल्ली","चेन्नई"],2,"भारत की राजधानी नई दिल्ली है।"],
+["सामान्य ज्ञान / विज्ञान","रक्त पंप करने वाला अंग?",["फेफड़ा","हृदय","यकृत","गुर्दा"],1,"हृदय रक्त को पूरे शरीर में पंप करता है।"],
+["सामान्य ज्ञान / विज्ञान","प्रकाश संश्लेषण में पौधे कौन-सी गैस लेते हैं?",["ऑक्सीजन","नाइट्रोजन","कार्बन डाइऑक्साइड","हाइड्रोजन"],2,"पौधे CO₂ का उपयोग करते हैं।"],
+["सामान्य ज्ञान / विज्ञान","सौरमंडल का सबसे बड़ा ग्रह?",["पृथ्वी","मंगल","शनि","बृहस्पति"],3,"बृहस्पति सबसे बड़ा ग्रह है।"],
+["सामान्य ज्ञान / विज्ञान","पानी का रासायनिक सूत्र?",["CO₂","H₂O","O₂","NaCl"],1,"दो हाइड्रोजन और एक ऑक्सीजन परमाणु।"],
+["सामान्य ज्ञान / विज्ञान","भारत का राष्ट्रीय पशु?",["सिंह","हाथी","बाघ","तेंदुआ"],2,"भारत का राष्ट्रीय पशु बाघ है।"],
+["सामान्य ज्ञान / विज्ञान","विटामिन C की कमी से कौन-सा रोग?",["रिकेट्स","स्कर्वी","बेरी-बेरी","रतौंधी"],1,"विटामिन C की कमी से स्कर्वी होता है।"],
+["सामान्य ज्ञान / विज्ञान","वायुमंडल में सबसे अधिक मात्रा किस गैस की?",["ऑक्सीजन","CO₂","नाइट्रोजन","आर्गन"],2,"वायुमंडल में लगभग 78% नाइट्रोजन है।"],
+["सामान्य ज्ञान / विज्ञान","भारत छोड़ो आंदोलन किस वर्ष शुरू हुआ?",["1930","1942","1947","1920"],1,"भारत छोड़ो आंदोलन 1942 में शुरू हुआ।"],
+["समसामयिकी","2024 ग्रीष्मकालीन ओलंपिक किस शहर में हुए?",["टोक्यो","पेरिस","लंदन","लॉस एंजिलिस"],1,"2024 ओलंपिक पेरिस में हुए।"],
+["समसामयिकी","2024 में भारत की राष्ट्रपति कौन थीं?",["प्रतिभा पाटिल","निर्मला सीतारमण","द्रौपदी मुर्मू","मीरा कुमार"],2,"2024 में राष्ट्रपति द्रौपदी मुर्मू थीं।"],
+["समसामयिकी","चंद्रयान-3 ने चंद्रमा पर सॉफ्ट लैंडिंग किस वर्ष की?",["2021","2022","2023","2024"],2,"23 अगस्त 2023 को सफल लैंडिंग हुई।"],
+["समसामयिकी","2024 ICC पुरुष T20 विश्व कप किसने जीता?",["ऑस्ट्रेलिया","भारत","दक्षिण अफ्रीका","इंग्लैंड"],1,"भारत ने फाइनल में दक्षिण अफ्रीका को हराया।"],
+["समसामयिकी","2024 में भारत रत्न पाने वाले कृषि वैज्ञानिक?",["एम. एस. स्वामीनाथन","वर्गीज कुरियन","सी. एन. आर. राव","रघुनाथ माशेलकर"],0,"एम. एस. स्वामीनाथन को मरणोपरांत भारत रत्न मिला।"],
+["समसामयिकी","2024 में G20 की अध्यक्षता किस देश के पास थी?",["भारत","ब्राजील","दक्षिण अफ्रीका","इटली"],1,"2024 में G20 अध्यक्षता ब्राजील के पास थी।"],
+["समसामयिकी","आदित्य-L1 मिशन किसका अध्ययन करता है?",["मंगल","चंद्रमा","सूर्य","शुक्र"],2,"आदित्य-L1 सूर्य-अध्ययन मिशन है।"],
+["समसामयिकी","2024 लोकसभा चुनाव के दौरान मुख्य चुनाव आयुक्त?",["राजीव कुमार","ज्ञानेश कुमार","सुशील चंद्रा","ओ. पी. रावत"],0,"2024 में मुख्य चुनाव आयुक्त राजीव कुमार थे।"],
+["समसामयिकी","जून 2024 में तीसरी बार प्रधानमंत्री पद की शपथ किसने ली?",["अमित शाह","नरेंद्र मोदी","राजनाथ सिंह","मल्लिकार्जुन खड़गे"],1,"नरेंद्र मोदी ने जून 2024 में शपथ ली।"],
+["समसामयिकी","2024 का नोबेल शांति पुरस्कार किसे मिला?",["WHO","निहोन हिडांक्यो","UNICEF","रेड क्रॉस"],1,"2024 का पुरस्कार जापानी संगठन निहोन हिडांक्यो को मिला।"]
+];
+const qs=raw.map((x,i)=>({s:x[0],q:x[1],o:x[2],a:x[3],e:x[4]}));let cur=0,ans=Array(50).fill(null),mark=Array(50).fill(false),sec=5400,ended=false;
+const el=id=>document.getElementById(id);
+function draw(){if(ended)return;let q=qs[cur];el("section").textContent=q.s+" · ";el("counter").textContent="प्रश्न "+(cur+1)+" / 50";el("question").textContent=q.q;el("options").innerHTML=q.o.map((v,i)=>'<label class="opt"><input type="radio" name="answer" '+(ans[cur]===i?"checked":"")+' value="'+i+'">'+String.fromCharCode(65+i)+'. '+v+'</label>').join("");document.querySelectorAll('input[name=answer]').forEach(r=>r.onchange=()=>{ans[cur]=+r.value;draw()});let f=el("feedback");if(ans[cur]!==null){let ok=ans[cur]===q.a;f.className=ok?"good":"bad";f.innerHTML=(ok?"✓ सही उत्तर":"✗ गलत। सही उत्तर: "+q.o[q.a])+"<br>"+q.e}else{f.className="";f.textContent=""}el("prev").disabled=cur===0;el("next").disabled=cur===49;el("mark").textContent=mark[cur]?"⚑ Review हटाएँ":"⚑ Review";let n=ans.filter(x=>x!==null).length;el("progress").style.width=n*2+"%";el("progressText").textContent=n+" / 50 उत्तर दिए गए";el("grid").innerHTML=qs.map((_,i)=>'<button class="num '+(ans[i]!==null?"done ":"")+(mark[i]?"mark ":"")+(i===cur?"sel":"")+'" data-i="'+i+'">'+(i+1)+'</button>').join("");document.querySelectorAll(".num").forEach(b=>b.onclick=()=>{cur=+b.dataset.i;draw()})}
+el("prev").onclick=()=>{cur--;draw()};el("next").onclick=()=>{cur++;draw()};el("mark").onclick=()=>{mark[cur]=!mark[cur];draw()};el("clear").onclick=()=>{ans[cur]=null;draw()};el("submit").onclick=()=>finish(false);
+function finish(auto){if(ended)return;if(!auto&&!confirm("क्या आप टेस्ट जमा करना चाहते हैं?"))return;ended=true;clearInterval(clock);let c=0,w=0;qs.forEach((q,i)=>{if(ans[i]===q.a)c++;else if(ans[i]!==null)w++});let blank=50-c-w,score=c-w/3;el("layout").innerHTML='<section class="card" style="grid-column:1/-1"><h2>आपका परिणाम</h2><div class="score">'+score.toFixed(2)+' / 50</div><p>सही: '+c+' · गलत: '+w+' · अनुत्तरित: '+blank+'</p><p>नकारात्मक अंकन: प्रत्येक गलत उत्तर पर ⅓ अंक घटे।</p><button class="btn primary" onclick="location.reload()">दोबारा टेस्ट दें</button><h3>उत्तर और व्याख्या</h3>'+qs.map((q,i)=>'<div class="review"><b>'+(i+1)+'. '+q.q+'</b><p>'+(ans[i]===null?"अनुत्तरित":ans[i]===q.a?"सही उत्तर":"गलत उत्तर")+' · सही विकल्प: '+q.o[q.a]+'</p><small>'+q.e+'</small></div>').join("")+'</section>';el("timer").textContent="समाप्त"}
+const clock=setInterval(()=>{if(ended)return;sec--;el("timer").textContent=String(Math.floor(sec/60)).padStart(2,"0")+":"+String(sec%60).padStart(2,"0");if(sec<=0)finish(true)},1000);draw();
+</script></html>
