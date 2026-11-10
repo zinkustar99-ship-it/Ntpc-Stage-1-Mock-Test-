@@ -13,7 +13,7 @@
 <div id="help">चलना: तीर वाले बटन दबाएँ<br>कैमरा: दाईं ओर उंगली खींचें<br>RUN: दौड़ना · JUMP: कूदना</div>
 <div id="dpad"><button id="up">▲</button><button id="left">◀</button><button id="down">▼</button><button id="right">▶</button></div><div id="buttons"><button class="act" id="jump">JUMP</button><button class="act" id="run">RUN</button></div><div id="toast"></div>
 <div id="start"><div id="box"><div style="font-size:44px">🏙️</div><h1>CITY LIFE INDIA</h1><p>एक रंगीन भारतीय शहर में घूमो—नया चेहरा और कपड़ों वाला चलने-फिरने योग्य 3D नागरिक किरदार, दुकानें, मकान और सड़कें।</p><p>मोबाइल पर नीचे बाईं तरफ तीर वाले बटन दबाकर चलो और दाईं ओर उंगली खींचकर कैमरा घुमाओ।</p><button id="play">खेल शुरू करें ▶</button><p style="font-size:10px">अब नया नागरिक किरदार और बेहतर शहर बनाया गया है।</p></div></div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script><script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 (()=>{const root=document.getElementById('game'),toast=document.getElementById('toast');if(!window.THREE){toast.textContent='3D इंजन लोड नहीं हुआ — इंटरनेट जाँचें';toast.style.opacity=1;return}
 const scene=new THREE.Scene();scene.background=new THREE.Color(0x8fc8ed);scene.fog=new THREE.Fog(0x9fc9df,135,330);
@@ -46,7 +46,7 @@ const skin=M(0xb87955),shirt=M(0x176b83),shirtLight=M(0x268ba0),pants=M(0x303c50
 function sphere(parent,rad,mat,x,y,z,scale){const o=new THREE.Mesh(new THREE.SphereGeometry(rad,20,16),mat);o.position.set(x,y,z);if(scale)o.scale.set(...scale);o.castShadow=true;o.receiveShadow=true;parent.add(o);return o}
 function limb(parent,rad,len,mat,x,y,z){const g=new THREE.Group();g.position.set(x,y,z);parent.add(g);const mesh=new THREE.Mesh(new THREE.CylinderGeometry(rad*.82,rad,len,16),mat);mesh.position.y=-len/2;mesh.castShadow=true;mesh.receiveShadow=true;g.add(mesh);sphere(g,rad,mat,0,-len,0);return g}
 const torso=new THREE.Group();torso.position.y=1.22;player.add(torso);
-const chest=new THREE.Mesh(new THREE.CapsuleGeometry(.34,.48,6,12),shirt);chest.scale.set(1,.92,.62);chest.castShadow=true;torso.add(chest);
+const chest=box(.62,.88,.38,shirt,0,.05,0,torso);sphere(torso,.31,shirt,0,.47,0,[1,.72,.62]);sphere(torso,.31,shirt,0,-.37,0,[1,.55,.62]);
 box(.45,.12,.035,shirtLight,0,.23,.22,torso);
 const neck=new THREE.Mesh(new THREE.CylinderGeometry(.105,.12,.18,16),skin);neck.position.y=.56;torso.add(neck);
 const head=new THREE.Group();head.position.set(0,.82,0);torso.add(head);
