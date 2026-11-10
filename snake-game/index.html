@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#102b25">
+<title>साँप और मेंढक · Snake Game</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(circle at top,#1e5542,#0b201d 68%);color:#f2fff7;font-family:system-ui,"Noto Sans Devanagari",sans-serif}
+header{padding:16px;text-align:center}header a{color:#c9f6da;text-decoration:none;font-size:14px}h1{margin:10px 0 4px;font-size:clamp(25px,5vw,38px)}.sub{color:#c2ddcf;margin:0}
+.wrap{width:min(94vw,620px);margin:12px auto 30px}.panel{background:#16382f;border:1px solid #35634e;border-radius:18px;padding:14px;box-shadow:0 18px 50px #0005}
+.stats{display:flex;justify-content:space-between;gap:10px;margin-bottom:12px}.stat{background:#0d2923;border-radius:12px;padding:9px 14px;flex:1;text-align:center}.stat small{display:block;color:#a8c9b7}.stat b{font-size:22px}
+canvas{display:block;width:100%;aspect-ratio:1/1;background:#a8d9a0;border:5px solid #315e45;border-radius:12px;touch-action:none}
+.actions{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin:12px 0}.btn{border:0;border-radius:10px;padding:11px 17px;font-weight:800;font-size:15px;background:#d7eadb;color:#173b2b;cursor:pointer}.btn.primary{background:#8ee0a6}.btn:active{transform:scale(.97)}
+.help{text-align:center;color:#c5ddce;font-size:13px;line-height:1.7}
+.pad{width:190px;margin:12px auto 2px;display:grid;grid-template-columns:repeat(3,1fr);gap:7px}.pad button{height:48px;border:1px solid #58866b;background:#214c3b;color:white;border-radius:12px;font-size:23px;touch-action:manipulation}.pad button:active{background:#3c7857}.pad .empty{visibility:hidden}
+.overlay{position:fixed;inset:0;background:#061510bb;display:grid;place-items:center;padding:20px}.dialog{max-width:360px;width:100%;background:#173b30;border:1px solid #60916e;border-radius:18px;padding:24px;text-align:center;box-shadow:0 20px 60px #0008}.dialog h2{margin:0 0 8px}.dialog p{color:#c7dfcf;line-height:1.6}.hidden{display:none}
+@media(min-width:700px){.pad{display:none}}
+</style>
+</head>
+<body>
+<header><a href="../">← मॉक टेस्ट पर वापस जाएँ</a><h1>🐍 साँप और मेंढक 🐸</h1><p class="sub">मेंढक खाओ, साँप को लंबा बनाओ और अपना स्कोर बढ़ाओ!</p></header>
+<main class="wrap"><section class="panel">
+<div class="stats"><div class="stat"><small>आपका स्कोर</small><b id="score">0</b></div><div class="stat"><small>सबसे अच्छा</small><b id="best">0</b></div><div class="stat"><small>गति</small><b id="speed">धीमी</b></div></div>
+<canvas id="game" width="480" height="480" aria-label="साँप का खेल"></canvas>
+<div class="actions"><button class="btn primary" id="start">▶ खेल शुरू करें</button><button class="btn" id="pause">Ⅱ रोकें</button><button class="btn" id="restart">↻ फिर से</button></div>
+<div class="pad" aria-label="मोबाइल दिशा बटन"><span class="empty"></span><button data-dir="up">▲</button><span class="empty"></span><button data-dir="left">◀</button><button data-dir="down">▼</button><button data-dir="right">▶</button></div>
+<p class="help">कंप्यूटर: Arrow Keys या W A S D दबाएँ।<br>मोबाइल: स्क्रीन के दिशा बटन दबाएँ। साँप को दीवार या अपने शरीर से टकराने न दें।</p>
+</section></main>
+<div class="overlay" id="overlay"><div class="dialog"><h2 id="dialogTitle">खेलने के लिए तैयार?</h2><p id="dialogText">हरा साँप चलाएँ और मेंढक 🐸 को खाएँ। हर मेंढक खाने पर साँप लंबा होगा।</p><button class="btn primary" id="overlayStart">खेल शुरू करें</button></div></div>
+<script>
+const canvas=document.getElementById('game'),ctx=canvas.getContext('2d'),N=20,C=24;
+const scoreEl=document.getElementById('score'),bestEl=document.getElementById('best'),speedEl=document.getElementById('speed');
+let snake,food,dir,nextDir,score,tick,timer,running=false,paused=false,over=false;
+let best=Number(localStorage.getItem('frogSnakeBest')||0);bestEl.textContent=best;
+function reset(){snake=[{x:8,y:10},{x:7,y:10},{x:6,y:10}];dir={x:1,y:0};nextDir={x:1,y:0};score=0;over=false;paused=false;scoreEl.textContent=0;placeFood();draw()}
+function placeFood(){let p;do{p={x:Math.floor(Math.random()*N),y:Math.floor(Math.random()*N)}}while(snake.some(s=>s.x===p.x&&s.y===p.y));food=p}
+function setDirection(d){if(!running||paused||over)return;const m={up:{x:0,y:-1},down:{x:0,y:1},left:{x:-1,y:0},right:{x:1,y:0}}[d];if(m&&!(m.x===-dir.x&&m.y===-dir.y))nextDir=m}
+function draw(){ctx.clearRect(0,0,480,480);for(let y=0;y<N;y++)for(let x=0;x<N;x++){ctx.fillStyle=(x+y)%2?'#a4d49b':'#acdca3';ctx.fillRect(x*C,y*C,C,C)}
+ctx.font='19px system-ui';ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('🐸',food.x*C+C/2,food.y*C+C/2+1);
+snake.forEach((s,i)=>{let px=s.x*C,py=s.y*C;ctx.fillStyle=i===0?'#075b2d':'#168a46';ctx.beginPath();ctx.roundRect(px+1,py+1,C-2,C-2,7);ctx.fill();if(i===0){ctx.fillStyle='white';ctx.beginPath();ctx.arc(px+8,py+8,3.3,0,Math.PI*2);ctx.arc(px+17,py+8,3.3,0,Math.PI*2);ctx.fill();ctx.fillStyle='#10251a';ctx.beginPath();ctx.arc(px+9,py+8,1.5,0,Math.PI*2);ctx.arc(px+18,py+8,1.5,0,Math.PI*2);ctx.fill()}})}
+function step(){if(!running||paused||over)return;dir=nextDir;let head={x:snake[0].x+dir.x,y:snake[0].y+dir.y};let eating=head.x===food.x&&head.y===food.y;let body=eating?snake:snake.slice(0,-1);if(head.x<0||head.y<0||head.x>=N||head.y>=N||body.some(s=>s.x===head.x&&s.y===head.y)){gameOver();return}snake.unshift(head);if(eating){score+=10;scoreEl.textContent=score;if(score>best){best=score;bestEl.textContent=best;localStorage.setItem('frogSnakeBest',best)}placeFood();if(score%50===0){clearInterval(timer);tick=Math.max(65,tick-12);timer=setInterval(step,tick)}}else snake.pop();speedEl.textContent=tick<100?'तेज़':tick<145?'मध्यम':'धीमी';draw()}
+function begin(){if(over)reset();if(running&&!paused)return;running=true;paused=false;document.getElementById('overlay').classList.add('hidden');document.getElementById('pause').textContent='Ⅱ रोकें';if(!timer){tick=170;timer=setInterval(step,tick)}}
+function stopTimer(){clearInterval(timer);timer=null}
+function gameOver(){over=true;running=false;stopTimer();document.getElementById('dialogTitle').textContent='खेल समाप्त!';document.getElementById('dialogText').textContent='आपका स्कोर '+score+' है। फिर से कोशिश करें और अपना रिकॉर्ड बनाएँ।';document.getElementById('overlayStart').textContent='फिर से खेलें';document.getElementById('overlay').classList.remove('hidden')}
+function pauseGame(){if(!running||over)return;paused=!paused;document.getElementById('pause').textContent=paused?'▶ जारी रखें':'Ⅱ रोकें';if(paused){document.getElementById('dialogTitle').textContent='खेल रुका हुआ है';document.getElementById('dialogText').textContent='जब तैयार हों, जारी रखें दबाएँ।';document.getElementById('overlayStart').textContent='जारी रखें';document.getElementById('overlay').classList.remove('hidden')}else document.getElementById('overlay').classList.add('hidden')}
+document.getElementById('start').onclick=begin;document.getElementById('overlayStart').onclick=()=>{if(paused){paused=false;document.getElementById('overlay').classList.add('hidden');document.getElementById('pause').textContent='Ⅱ रोकें'}else{stopTimer();reset();begin()}};document.getElementById('pause').onclick=pauseGame;document.getElementById('restart').onclick=()=>{stopTimer();running=false;reset();begin()};
+document.querySelectorAll('[data-dir]').forEach(b=>{b.addEventListener('pointerdown',e=>{e.preventDefault();setDirection(b.dataset.dir)})});
+document.addEventListener('keydown',e=>{let k=e.key.toLowerCase(),map={arrowup:'up',w:'up',arrowdown:'down',s:'down',arrowleft:'left',a:'left',arrowright:'right',d:'right'};if(map[k]){e.preventDefault();setDirection(map[k])}if(k===' '){e.preventDefault();pauseGame()}});
+reset();tick=170;speedEl.textContent='धीमी';
+</script>
+</body></html>
