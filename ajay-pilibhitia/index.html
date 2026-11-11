@@ -3,83 +3,69 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#102b25">
-<meta name="description" content="Ajay Pilibhitia Official Website — a peaceful personal space inspired by the green valleys, mountains and waterfalls of Switzerland.">
-<title>Ajay Pilibhitia Official Website</title>
+<meta name="theme-color" content="#102b24">
+<meta name="description" content="Ajay Pilibhitia — official personal website, inspired by the Swiss Alps.">
+<title>AJAY PILIBHITIA | Official Website</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800;900&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--forest:#163c31;--cream:#f5f4ed;--muted:#dce6dc;--gold:#d9c79c}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:#20352d;font-family:'DM Sans',sans-serif}
-.hero{min-height:100svh;position:relative;display:flex;flex-direction:column;color:#fff;background:linear-gradient(180deg,rgba(8,27,23,.28) 0%,rgba(8,27,23,.18) 38%,rgba(8,27,23,.76) 100%),url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=2400&q=90') center 48%/cover no-repeat}
-.hero:after{content:"";position:absolute;inset:0;border:1px solid rgba(255,255,255,.15);pointer-events:none;margin:14px}
-header{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:30px clamp(24px,7vw,104px)}
-.brand{font-size:12px;letter-spacing:.22em;text-transform:uppercase;font-weight:700}.brand span{display:block;font-size:10px;letter-spacing:.32em;font-weight:400;opacity:.76;margin-top:6px}
-nav{display:flex;gap:25px}nav a{color:#fff;text-decoration:none;font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.9}nav a:hover{color:var(--gold)}
-.hero-content{position:relative;z-index:1;max-width:1050px;margin:auto 0;padding:100px clamp(32px,12vw,180px) 125px}
-.eyebrow{display:flex;align-items:center;gap:13px;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:#e7e8d8}.eyebrow:before{content:"";width:42px;height:1px;background:var(--gold)}
-h1{font-family:'Playfair Display',serif;font-size:clamp(48px,8.3vw,112px);font-weight:500;line-height:.99;letter-spacing:-.045em;margin:28px 0 24px;max-width:900px}
-h1 em{font-weight:500;color:#e3d6b5}.lead{max-width:490px;color:rgba(255,255,255,.83);font-size:15px;line-height:1.9;margin:0}
-.scroll{position:absolute;z-index:2;bottom:38px;left:clamp(32px,7vw,104px);display:flex;align-items:center;gap:14px;font-size:10px;letter-spacing:.24em;text-transform:uppercase;color:#fff}.scroll:before{content:"";width:44px;height:1px;background:var(--gold)}
-.intro{padding:110px 24px 105px;text-align:center;background:var(--cream)}.kicker{font-size:10px;letter-spacing:.28em;text-transform:uppercase;color:#748477}
-.intro h2{font:500 clamp(34px,5vw,57px)/1.15 'Playfair Display',serif;color:var(--forest);max-width:760px;margin:22px auto}
-.intro p{max-width:570px;margin:0 auto;color:#718078;line-height:1.9;font-size:14px}
-.gallery{display:grid;grid-template-columns:1.05fr .95fr;gap:18px;padding:0 clamp(18px,5vw,72px) 100px;background:var(--cream)}
-.photo{position:relative;overflow:hidden;min-height:360px;background:#d5dfd4}.photo img{width:100%;height:100%;position:absolute;inset:0;object-fit:cover;transition:transform .8s ease}.photo:hover img{transform:scale(1.045)}
-.photo.tall{min-height:520px}.photo-caption{position:absolute;bottom:24px;left:25px;color:#fff;font:500 24px 'Playfair Display',serif;text-shadow:0 2px 18px #0008}
-.youtube{position:relative;overflow:hidden;padding:90px 24px 96px;background:linear-gradient(120deg,#102b24,#1c493a);color:#fff;text-align:center}
-.youtube:before,.youtube:after{content:"";position:absolute;border:1px solid rgba(218,205,166,.18);border-radius:50%;width:440px;height:440px;top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none}.youtube:after{width:560px;height:560px}
-.yt-inner{position:relative;z-index:1;max-width:650px;margin:auto}.yt-icon{width:66px;height:46px;border-radius:14px;background:#e62117;display:grid;place-items:center;margin:0 auto 25px;box-shadow:0 12px 35px #0003}
-.yt-icon svg{width:24px;height:24px;fill:white}.youtube .kicker{color:#c8d6c9}.youtube h2{font:500 clamp(34px,5vw,57px)/1.12 'Playfair Display',serif;margin:18px 0 16px}.youtube p{max-width:500px;margin:0 auto 30px;color:#c7d5cb;font-size:14px;line-height:1.85}
-.yt-button{display:inline-flex;align-items:center;justify-content:center;gap:12px;padding:15px 25px;border-radius:3px;background:#f5f4ed;color:#173b30;text-decoration:none;font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;transition:transform .2s,background .2s}
-.yt-button:hover{transform:translateY(-3px);background:#e3d6b5}.yt-handle{display:block;margin-top:17px;font-size:11px;letter-spacing:.12em;color:#b6c8bc}
-.closing{background:#173b30;color:#fff;text-align:center;padding:70px 24px 78px}.closing .kicker{color:#c5d2c4}.closing h2{font:500 clamp(32px,4.5vw,50px) 'Playfair Display',serif;margin:18px 0 12px}.closing p{font-size:13px;color:#c4d1c8;line-height:1.8}
-footer{background:#102b24;color:#aabbb0;padding:23px clamp(24px,7vw,104px);display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;font-size:10px;letter-spacing:.08em}
-@media(max-width:700px){header{padding:25px 28px}nav{gap:12px}nav a{font-size:9px}nav a:nth-child(2){display:none}.brand{font-size:10px}.hero-content{padding:80px 34px 120px}.gallery{grid-template-columns:1fr;padding:0 18px 60px}.photo,.photo.tall{min-height:330px}.intro{padding:78px 25px}.scroll{left:34px}.youtube{padding:75px 24px 80px}}
+:root{--green:#102c24;--cream:#f5f3e9;--gold:#e5d2a4}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:#18352b;font-family:'DM Sans',Arial,sans-serif}
+.hero{min-height:100svh;position:relative;color:#fff;background:linear-gradient(90deg,rgba(5,23,18,.72),rgba(5,23,18,.2)),linear-gradient(0deg,rgba(5,23,18,.68),transparent 65%),url('https://images.unsplash.com/photo-1470770841072-f978cf4d019e?auto=format&fit=crop&w=2400&q=90') center/cover no-repeat;display:flex;flex-direction:column}
+header{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:25px clamp(20px,6vw,90px);background:rgba(9,34,27,.32);border-bottom:1px solid #ffffff30}
+.brand{font-size:clamp(15px,2vw,21px);font-weight:900;letter-spacing:.09em;line-height:1.15;text-shadow:0 2px 12px #0008}.brand small{display:block;font-size:10px;letter-spacing:.34em;font-weight:700;color:var(--gold);margin-top:7px}
+nav{display:flex;align-items:center;gap:clamp(12px,2.5vw,32px)}nav a{color:white;text-decoration:none;font-size:12px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;padding:10px 0;border-bottom:2px solid transparent}nav a:hover{border-color:var(--gold)}
+.hero-content{position:relative;z-index:1;margin:auto 0;padding:90px clamp(25px,9vw,140px) 120px;max-width:1200px}
+.kicker{font-size:12px;font-weight:800;letter-spacing:.32em;text-transform:uppercase;color:var(--gold)}
+h1{font-size:clamp(48px,9.3vw,124px);font-weight:900;line-height:.94;letter-spacing:-.065em;margin:22px 0 15px;text-transform:uppercase;text-shadow:0 5px 30px #0007}
+.subtitle{font:700 clamp(18px,3vw,30px) 'Playfair Display',serif;letter-spacing:.05em;color:#f0e5c9;margin:0 0 22px}
+.lead{max-width:550px;font-size:15px;line-height:1.85;color:#f1f4ef;margin:0 0 32px}
+.actions{display:flex;gap:14px;flex-wrap:wrap}.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 23px;border-radius:4px;text-decoration:none;font-size:12px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;transition:.2s}.btn-primary{background:#e62117;color:white;box-shadow:0 8px 25px #0005}.btn-secondary{border:1px solid #fff;color:#fff;background:#ffffff12}.btn:hover{transform:translateY(-3px);filter:brightness(1.08)}
+.scroll{position:absolute;bottom:28px;left:clamp(25px,9vw,140px);font-size:10px;letter-spacing:.25em;font-weight:700;color:#fff}
+.intro{text-align:center;padding:95px 24px 90px}.intro h2,.section-title{font:700 clamp(35px,5vw,58px)/1.1 'Playfair Display',serif;color:var(--green);margin:18px auto}.intro p{max-width:620px;margin:0 auto;color:#65776c;line-height:1.9;font-size:15px}
+.gallery{display:grid;grid-template-columns:1.1fr .9fr;gap:18px;padding:0 clamp(16px,5vw,70px) 90px}.photo{position:relative;min-height:330px;overflow:hidden;background:#cbd8cb}.photo.tall{min-height:540px}.photo img{position:absolute;width:100%;height:100%;inset:0;object-fit:cover;transition:transform .7s}.photo:hover img{transform:scale(1.04)}.photo:after{content:"";position:absolute;inset:40% 0 0;background:linear-gradient(transparent,#0008)}.photo span{position:absolute;z-index:1;bottom:23px;left:25px;color:white;font:700 25px 'Playfair Display',serif}
+.youtube{padding:85px 22px 90px;text-align:center;color:white;background:linear-gradient(130deg,#0b261e,#20513e);position:relative}.youtube .section-title{color:white}.youtube p{max-width:530px;margin:0 auto 28px;color:#d4e0d6;line-height:1.8}.yt-badge{display:inline-grid;place-items:center;width:62px;height:44px;background:#e62117;border-radius:12px;font-size:24px;margin-bottom:18px}.handle{display:block;color:#d9cba8;font-weight:800;letter-spacing:.12em;margin-top:17px;font-size:13px}
+footer{padding:25px clamp(20px,6vw,90px);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;background:#091f19;color:#bdcbbf;font-size:11px;font-weight:700;letter-spacing:.1em}
+@media(max-width:680px){header{align-items:flex-start;gap:15px;flex-direction:column}nav{width:100%;justify-content:space-between;gap:8px}nav a{font-size:10px}.hero-content{padding:75px 25px 120px}h1{font-size:clamp(45px,13vw,78px)}.gallery{grid-template-columns:1fr;padding:0 15px 55px}.photo.tall{min-height:360px}.photo{min-height:290px}.intro{padding:70px 24px}.scroll{left:25px}}
 </style>
 </head>
 <body>
 <section class="hero" id="home">
 <header>
-<div class="brand">AJAY PILIBHITIA<span>OFFICIAL WEBSITE</span></div>
-<nav aria-label="Main navigation"><a href="#home">Home</a><a href="#about">About</a><a href="#landscapes">Nature</a><a href="#youtube">YouTube</a></nav>
+<div class="brand">AJAY PILIBHITIA<small>OFFICIAL WEBSITE</small></div>
+<nav aria-label="Main navigation"><a href="#home">Home</a><a href="#about">About</a><a href="#nature">Nature</a><a href="#youtube">YouTube ↗</a></nav>
 </header>
-<div class="hero-content">
-<div class="eyebrow">A little space of my own</div>
-<h1>Where the mountains<br>meet <em>the sky.</em></h1>
-<p class="lead">Inspired by quiet valleys, emerald hills, flowing waterfalls and the timeless beauty of nature.</p>
+<main class="hero-content">
+<div class="kicker">Welcome to my official website</div>
+<h1>AJAY<br>PILIBHITIA</h1>
+<p class="subtitle">A personal space. A beautiful journey.</p>
+<p class="lead">Inspired by the breathtaking Swiss Alps — green mountains, peaceful lakes, beautiful waterfalls and the magic of nature.</p>
+<div class="actions">
+<a class="btn btn-primary" href="https://youtube.com/@ajaypilibhitiya?si=2tjS3t6rSS52k0On" target="_blank" rel="noopener noreferrer">▶ Visit My YouTube</a>
+<a class="btn btn-secondary" href="#about">Explore Website ↓</a>
 </div>
-<div class="scroll">Discover the view</div>
+</main>
+<div class="scroll">SCROLL TO EXPLORE ↓</div>
 </section>
 <section class="intro" id="about">
-<div class="kicker">Welcome</div>
-<h2>Ajay Pilibhitia<br>Official Website</h2>
-<p>A personal corner on the internet, shaped by the calm and beauty of the Swiss Alps. More updates and new things will find their place here in time.</p>
+<div class="kicker" style="color:#718477">A warm welcome</div>
+<h2>Welcome to my world.</h2>
+<p>This is the official website of Ajay Pilibhitia — a personal corner on the internet. Explore the beauty of nature and stay connected. More updates will be added here soon.</p>
 </section>
-<section class="gallery" id="landscapes" aria-label="Nature landscapes">
-<div class="photo tall"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=85" alt="Green alpine valley beneath dramatic mountains"><div class="photo-caption">The quiet of the valleys</div></div>
-<div style="display:grid;gap:18px">
-<div class="photo"><img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=85" alt="Mountain lake surrounded by green hills"><div class="photo-caption">Still waters</div></div>
-<div class="photo"><img src="https://images.unsplash.com/photo-1439066615861-d1af74d74000?auto=format&fit=crop&w=1200&q=85" alt="Waterfall in a lush mountain landscape"><div class="photo-caption">Nature in motion</div></div>
-</div>
+<section class="gallery" id="nature" aria-label="Swiss inspired nature gallery">
+<div class="photo tall"><img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=85" alt="Green mountain valley"><span>Green mountain valleys</span></div>
+<div style="display:grid;gap:18px"><div class="photo"><img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=1200&q=85" alt="Alpine lake"><span>Peaceful alpine lakes</span></div><div class="photo"><img src="https://images.unsplash.com/photo-1439066615861-d1af74d74000?auto=format&fit=crop&w=1200&q=85" alt="Waterfall in nature"><span>Beautiful waterfalls</span></div></div>
 </section>
 <section class="youtube" id="youtube">
-<div class="yt-inner">
-<div class="yt-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.6 12 3.6 12 3.6s-7.5 0-9.4.5A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8ZM9.6 15.6V8.4l6.2 3.6-6.2 3.6Z"/></svg></div>
-<div class="kicker">Watch &amp; connect</div>
-<h2>Join me on YouTube.</h2>
-<p>Visit my YouTube channel for videos, new uploads and more. Subscribe and be part of the journey.</p>
-<a class="yt-button" href="https://youtube.com/@ajaypilibhitiya?si=2tjS3t6rSS52k0On" target="_blank" rel="noopener noreferrer">Visit YouTube Channel <span aria-hidden="true">↗</span></a>
-<span class="yt-handle">@ajaypilibhitiya</span>
-</div>
+<div class="yt-badge" aria-hidden="true">▶</div>
+<div class="kicker">Connect with me</div>
+<h2 class="section-title">MY YOUTUBE CHANNEL</h2>
+<p>Click the button below to open my YouTube channel. Watch videos, explore new uploads and stay connected.</p>
+<a class="btn btn-primary" href="https://youtube.com/@ajaypilibhitiya?si=2tjS3t6rSS52k0On" target="_blank" rel="noopener noreferrer">OPEN YOUTUBE CHANNEL ↗</a>
+<span class="handle">@ajaypilibhitiya</span>
 </section>
-<section class="closing">
-<div class="kicker">A new beginning</div>
-<h2>More to come, in its own time.</h2>
-<p>This website is just getting started.</p>
-</section>
-<footer><span>© <span id="year"></span> AJAY PILIBHITIA</span><span>MADE WITH A LOVE FOR NATURE</span></footer>
+<footer><span>© <span id="year"></span> AJAY PILIBHITIA</span><span>OFFICIAL WEBSITE</span></footer>
 <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
 </body>
 </html>
