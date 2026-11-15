@@ -143,7 +143,15 @@ const remaining=buckets.map(b=>b.length);
 const positions=[0,0,0];
 let lastSubject=-1;
 while(mixed.length<100){
-  const candidates=[0,1,2].filter(s=>remaining[s]>0 && s!==lastSubject);
+  // ऐसा विषय चुनें जिससे आगे भी बाकी विषयों को बिना दोहराव के रखा जा सके.
+  const candidates=[0,1,2].filter(s=>{
+    if(remaining[s]===0 || s===lastSubject) return false;
+    const next=remaining.slice();
+    next[s]--;
+    const largest=Math.max(...next);
+    const others=next.reduce((sum,n)=>sum+n,0)-largest;
+    return largest<=others+1;
+  });
   candidates.sort((a,b)=>remaining[b]-remaining[a] || a-b);
   const chosen=candidates[0];
   mixed.push(buckets[chosen][positions[chosen]++]);
