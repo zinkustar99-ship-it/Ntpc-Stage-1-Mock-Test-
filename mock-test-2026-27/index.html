@@ -131,6 +131,17 @@ const data=[
 { s:2, q:"यदि कल से पहले वाला दिन रविवार था, तो आने वाला कल कौन-सा दिन होगा?", o:["मंगलवार","बुधवार","गुरुवार","शुक्रवार"], a:1,e:"कल से पहले वाला दिन रविवार ⇒ आज मंगलवार; आने वाला कल बुधवार।"},
 { s:2, q:"एक कक्षा में 30 विद्यार्थी हैं। सीमा ऊपर से 8वीं है। नीचे से उसका स्थान क्या होगा?", o:["21वाँ","22वाँ","23वाँ","24वाँ"], a:2,e:"नीचे से स्थान=30−8+1=23वाँ।"}
 ];
+// प्रश्नों को विषयवार समूह में रखने के बजाय मिलाकर दिखाएँ: GA → Maths → Reasoning.
+// हर विषय के प्रश्नों का क्रम भी मूल सूची के अनुसार सुरक्षित रहता है.
+const buckets=[0,1,2].map(s=>data.filter(q=>q.s===s));
+const mixed=[];
+let positions=[0,0,0];
+while(mixed.length<100){
+  for(const s of [0,1,2]){
+    if(positions[s]<buckets[s].length) mixed.push(buckets[s][positions[s]++]);
+  }
+}
+data.splice(0,data.length,...mixed);
 const answers=Array(data.length).fill(null), marked=Array(data.length).fill(false), visited=Array(data.length).fill(false);
 let current=0,activeSection=0,seconds=5400,interval=null,finished=false,startedAt=0;
 const $=id=>document.getElementById(id);
